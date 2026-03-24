@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malinowski & the Birth of Fieldwork — Quiz</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #F5F2EB;
+    color: #1C1A16;
+    min-height: 100vh;
+    padding: 2rem 1rem 5rem;
+  }
+
+  .page { max-width: 660px; margin: 0 auto; }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding-bottom: 1.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #7A7568; margin-bottom: 0.75rem;
+  }
+  .header h1 {
+    font-size: clamp(24px, 5vw, 36px); font-weight: normal;
+    color: #2E2416; line-height: 1.25; margin-bottom: 0.5rem;
+  }
+  .header-sub { font-size: 15px; color: #7A7568; font-style: italic; }
+
+  /* ── CARDS ── */
+  .card {
+    background: #FDFCF8;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── NAME SECTION ── */
+  .name-label {
+    display: block; font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #7A7568; margin-bottom: 0.6rem;
+  }
+  .name-input {
+    width: 100%; font-family: Georgia, serif; font-size: 20px;
+    font-style: italic; color: #2E2416;
+    background: transparent; border: none;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    padding: 4px 0 8px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .name-input:focus { border-color: #5046B4; }
+  .name-input::placeholder { color: #C5BFB4; font-size: 17px; }
+
+  /* ── INSTRUCTIONS ── */
+  .instr-card {
+    background: #EEECFA;
+    border: 1px solid rgba(80,70,180,0.2);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .instr-title {
+    font-size: 13px; font-weight: bold; letter-spacing: 0.04em;
+    color: #3730A3; margin-bottom: 0.6rem;
+  }
+  .instr-list { list-style: none; }
+  .instr-list li {
+    font-size: 14px; color: #3730A3; line-height: 1.55;
+    padding: 3px 0 3px 16px; position: relative;
+  }
+  .instr-list li::before { content: '–'; position: absolute; left: 0; }
+  .pass-badge {
+    background: rgba(80,70,180,0.15); border-radius: 3px;
+    padding: 1px 6px; font-weight: bold;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: block; width: 100%;
+    background: #2E2416; color: #F5F2EB;
+    border: none; border-radius: 10px;
+    padding: 13px 20px;
+    font-family: Georgia, serif; font-size: 16px;
+    cursor: pointer; transition: opacity 0.15s;
+    margin-bottom: 0.5rem;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .btn-next {
+    background: #5046B4; color: #fff;
+    border: none; border-radius: 8px;
+    padding: 9px 22px;
+    font-family: Georgia, serif; font-size: 14px;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .btn-next:hover { background: #3D35A0; }
+
+  .btn-restart {
+    display: inline-block;
+    background: #2E2416; color: #F5F2EB;
+    border: none; border-radius: 8px;
+    padding: 10px 26px;
+    font-family: Georgia, serif; font-size: 15px;
+    cursor: pointer; transition: opacity 0.15s;
+    margin-bottom: 2rem;
+  }
+  .btn-restart:hover { opacity: 0.85; }
+
+  .btn-print {
+    display: inline-block;
+    background: #B8860B; color: #fff;
+    border: none; border-radius: 8px;
+    padding: 10px 26px;
+    font-family: Georgia, serif; font-size: 15px;
+    cursor: pointer; transition: opacity 0.15s;
+    margin-bottom: 1rem;
+  }
+  .btn-print:hover { opacity: 0.88; }
+
+  /* ── PROGRESS ── */
+  .progress-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem;
+  }
+  .prog-track { flex: 1; height: 3px; background: rgba(0,0,0,0.1); border-radius: 2px; }
+  .prog-fill { height: 3px; background: #5046B4; border-radius: 2px; transition: width 0.4s ease; }
+  .prog-label { font-size: 12px; color: #7A7568; white-space: nowrap; }
+
+  /* ── QUESTION ── */
+  .q-badge {
+    display: inline-block; font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #3730A3;
+    background: #EEECFA; border-radius: 4px;
+    padding: 3px 8px; margin-bottom: 1rem;
+  }
+  .q-text { font-size: 17px; line-height: 1.65; margin-bottom: 1.5rem; }
+  .blank {
+    display: inline-block; border-bottom: 2px solid #5046B4;
+    min-width: 80px; height: 1.1em; vertical-align: bottom;
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.25rem; }
+  .opt {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.18);
+    border-radius: 9px; padding: 10px 14px;
+    font-family: Georgia, serif; font-size: 15px;
+    color: #1C1A16; text-align: left;
+    cursor: pointer; line-height: 1.5;
+    transition: background 0.12s, border-color 0.12s;
+    width: 100%;
+  }
+  .opt:hover:not(:disabled) { background: #EEE9DD; border-color: #5046B4; }
+  .opt:disabled { cursor: default; }
+  .opt-letter { font-size: 11px; font-weight: bold; color: #7A7568; min-width: 16px; margin-top: 3px; }
+
+  .opt.correct { background: #E8F5DC; border-color: #5A8A1A; color: #1E5000; }
+  .opt.correct .opt-letter { color: #1E5000; }
+  .opt.wrong   { background: #FDEAEA; border-color: #B03030; color: #4A1010; }
+  .opt.wrong   .opt-letter { color: #4A1010; }
+
+  /* ── FEEDBACK ── */
+  .feedback {
+    font-size: 14px; line-height: 1.6; padding: 11px 15px;
+    border-radius: 8px; margin-bottom: 1.25rem;
+    border-left: 3px solid;
+  }
+  .feedback.correct { background: #E8F5DC; border-color: #5A8A1A; color: #1E5000; }
+  .feedback.wrong   { background: #FDEAEA; border-color: #B03030; color: #4A1010; }
+
+  /* ── NAV ROW ── */
+  .nav-row { display: flex; justify-content: space-between; align-items: center; }
+  .tally { font-size: 13px; color: #7A7568; }
+
+  /* ── RESULTS ── */
+  .results-center { text-align: center; }
+  .score-ring {
+    width: 96px; height: 96px; border-radius: 50%;
+    border: 2px solid #5046B4;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+  .score-ring.passed { border-color: #B8860B; }
+  .score-ring.failed { border-color: #B03030; }
+  .score-big { font-size: 28px; font-weight: bold; line-height: 1; }
+  .score-big.passed { color: #B8860B; }
+  .score-big.failed { color: #B03030; }
+  .score-of { font-size: 11px; color: #7A7568; margin-top: 3px; }
+  .score-pct { font-size: 20px; margin-bottom: 0.4rem; }
+  .score-pct.passed { color: #B8860B; }
+  .score-pct.failed { color: #B03030; }
+  .result-msg {
+    font-size: 15px; font-style: italic; color: #7A7568;
+    margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto;
+    line-height: 1.65;
+  }
+
+  /* ── NOT PASSED BANNER ── */
+  .fail-banner {
+    background: #FDEAEA; border: 1px solid #B03030;
+    border-left: 4px solid #B03030; border-radius: 10px;
+    padding: 1.1rem 1.4rem; margin-bottom: 1.5rem; text-align: left;
+  }
+  .fail-banner h3 { font-size: 15px; color: #4A1010; margin-bottom: 0.35rem; }
+  .fail-banner p  { font-size: 14px; color: #4A1010; line-height: 1.6; }
+
+  /* ── REVIEW ── */
+  .review-section { text-align: left; }
+  .review-title {
+    font-size: 17px; color: #2E2416; margin-bottom: 1rem;
+    padding-top: 1.25rem; border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  .r-item {
+    padding: 10px 13px; border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-left: 3px solid rgba(0,0,0,0.15);
+    margin-bottom: 8px;
+  }
+  .r-item.ok  { border-left-color: #5A8A1A; }
+  .r-item.bad { border-left-color: #B03030; }
+  .r-q { font-size: 13px; font-weight: bold; color: #1C1A16; margin-bottom: 4px; line-height: 1.45; }
+  .r-a { font-size: 13px; color: #7A7568; }
+  .r-correct { color: #1E5000; font-weight: bold; }
+  .r-wrong   { color: #4A1010; font-weight: bold; }
+
+  /* ── CERTIFICATE ── */
+  .cert-wrap {
+    margin: 1.5rem 0 1rem;
+    border: 2px solid #C9A030;
+    border-radius: 5px; padding: 3px;
+    background: #FBF6E8;
+  }
+  .cert-inner {
+    border: 1px solid #C9A030; border-radius: 3px;
+    padding: 2.5rem 2rem; text-align: center;
+    background: #FEFCF4; position: relative;
+  }
+  .cert-corner {
+    position: absolute; font-size: 16px; color: #C9A030;
+  }
+  .cert-corner.tl { top: 12px; left: 14px; }
+  .cert-corner.tr { top: 12px; right: 14px; }
+  .cert-corner.bl { bottom: 12px; left: 14px; }
+  .cert-corner.br { bottom: 12px; right: 14px; }
+
+  .cert-eyebrow {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #9A6F00; margin-bottom: 1.1rem;
+  }
+  .cert-seal {
+    width: 62px; height: 62px; border-radius: 50%;
+    border: 2px solid #C9A030;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin: 0 auto 1.1rem;
+    background: #FBF6E8;
+  }
+  .cert-course-title {
+    font-size: clamp(18px, 4vw, 26px); font-weight: normal;
+    color: #2E2416; line-height: 1.3; margin-bottom: 1.4rem;
+  }
+  .cert-presented { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #7A7568; margin-bottom: 0.4rem; }
+  .cert-name {
+    font-size: clamp(22px, 5vw, 32px); font-style: italic; font-weight: normal;
+    color: #2E2416; border-bottom: 1px solid #C9A030;
+    display: inline-block; padding: 0 1.2rem 6px;
+    margin-bottom: 1.4rem; line-height: 1.3;
+  }
+  .cert-body {
+    font-size: 13.5px; color: #7A7568; line-height: 1.75;
+    max-width: 380px; margin: 0 auto 1.25rem;
+  }
+  .cert-score-pill {
+    display: inline-block; background: #C9A030; color: #FBF6E8;
+    font-size: 13px; font-weight: bold;
+    border-radius: 50px; padding: 5px 20px; margin-bottom: 1.6rem;
+    letter-spacing: 0.03em;
+  }
+  .cert-rule {
+    display: flex; align-items: center; gap: 10px;
+    color: #C9A030; font-size: 13px; margin-bottom: 1.4rem;
+  }
+  .cert-rule::before, .cert-rule::after {
+    content: ''; flex: 1; height: 1px; background: #C9A030; opacity: 0.4;
+  }
+  .cert-footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .cert-field { flex: 1; min-width: 110px; }
+  .cert-field.right { text-align: right; }
+  .cert-field-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #9A6F00; margin-bottom: 4px; }
+  .cert-field-value { font-size: 13px; font-style: italic; color: #2E2416; border-bottom: 1px solid rgba(180,130,10,0.3); padding-bottom: 3px; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    text-align: center; margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    font-size: 12px; color: #7A7568;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .no-print { display: none !important; }
+    .cert-wrap { border-color: #B8940A; margin: 0; }
+    .cert-inner { background: white; }
+    .card { box-shadow: none; }
+  }
+
+  @media (max-width: 500px) {
+    .card { padding: 1.25rem; }
+    .cert-inner { padding: 1.75rem 1rem; }
+    .cert-footer { flex-direction: column; align-items: flex-start; }
+    .cert-field.right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header no-print">
+    <p class="eyebrow">Anthropology · Fieldwork Methods</p>
+    <h1>Bronislaw Malinowski<br>&amp; the Birth of Fieldwork</h1>
+    <p class="header-sub">15 questions &nbsp;·&nbsp; Multiple choice &amp; fill in the blank</p>
+  </header>
+
+  <!-- ── START SCREEN ── -->
+  <div id="start-screen">
+    <div class="card">
+      <label class="name-label" for="nameInput">Your full name</label>
+      <input id="nameInput" class="name-input" type="text"
+        placeholder="Enter your full name here…"
+        autocomplete="name" />
+    </div>
+
+    <div class="instr-card">
+      <div class="instr-title">Before you begin</div>
+      <ul class="instr-list">
+        <li>This quiz has <strong>15 questions</strong> — multiple choice and fill in the blank.</li>
+        <li>Read carefully. Answers <strong>cannot be changed</strong> once selected.</li>
+        <li>You will receive feedback after every question.</li>
+        <li>You must score <span class="pass-badge">12 out of 15 (80%)</span> to pass.</li>
+        <li>Students who pass earn a <strong>Certificate of Completion</strong>.</li>
+      </ul>
+    </div>
+
+    <button class="btn-primary" id="startBtn" disabled onclick="startQuiz()">
+      Enter your name above to begin &rarr;
+    </button>
+  </div>
+
+  <!-- ── QUIZ SCREEN ── -->
+  <div id="quiz-screen" style="display:none;">
+    <div class="progress-row no-print">
+      <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      <div class="prog-label" id="progLabel">1 of 15</div>
+    </div>
+    <div id="questionArea"></div>
+  </div>
+
+  <!-- ── RESULTS SCREEN ── -->
+  <div id="results-screen" style="display:none;">
+    <div id="resultsArea"></div>
+  </div>
+
+  <footer class="page-footer no-print">
+    Based on the documentary transcript about Bronislaw Malinowski
+  </footer>
+</div>
+
+<script>
+var studentName = '';
+var current = 0;
+var score = 0;
+var userAnswers = [];
+
+var Q = [
+  { type:'mc',   text:'Bronislaw Malinowski first arrived in the Trobriand Islands in what year?',
+    opts:['1908','1912','1915','1922'], ans:2,
+    exp:'Malinowski landed on a tiny island off the coast of New Guinea in 1915, where he would conduct two extended stays close to a year each.' },
+
+  { type:'fitb', text:'Malinowski\'s new approach to fieldwork became known as ___ observation.',
+    opts:['Systematic','Participant','Empirical','Colonial'], ans:1,
+    exp:'Participant observation — anthropology\'s primary tool — simply means getting involved in a culture in every way possible: going fishing, planting, making baskets, joining conversations.' },
+
+  { type:'mc',   text:'Before Malinowski, how did most anthropologists gather information about other cultures?',
+    opts:['By living among local people for at least a year','By learning the local language first','By interviewing missionaries and taking short guided tours','By studying artifacts in museums'], ans:2,
+    exp:'Earlier scholars did quick tours of a few weeks, interviewed white missionaries rather than local people, then returned home to write it up — what Malinowski called "armchair library work."' },
+
+  { type:'fitb', text:'Malinowski\'s theoretical framework — arguing that all cultural practices serve a useful purpose — became known as ___.',
+    opts:['Evolutionism','Structuralism','Functionalism','Relativism'], ans:2,
+    exp:'Functionalism holds that even seemingly strange customs survive because they still serve a useful function: they "pay off" for the people who practice them.' },
+
+  { type:'mc',   text:'Which language is NOT mentioned as one Malinowski was fluent in before reaching the Trobriands?',
+    opts:['French','Spanish','Italian','German'], ans:2,
+    exp:'By 1915 Malinowski was fluent in Polish, German, French, English, and Spanish. Italian is never mentioned in the text.' },
+
+  { type:'mc',   text:'What were the two types of goods exchanged in the Trobriand Kula trading system?',
+    opts:['Food and weapons','Arm shells and necklaces','Pottery and cloth','Canoes and fish'], ans:1,
+    exp:'Kula partners exchanged arm shells and necklaces — goods that seemed economically useless but served a crucial social function in controlling behavior across islands.' },
+
+  { type:'fitb', text:'Malinowski argued an anthropologist must spend at least ___ in the field to capture the full annual cycle of a culture.',
+    opts:['Three months','Six months','A whole year','Two years'], ans:2,
+    exp:'Malinowski insisted on at least a full year in the field — and preferably repeated visits throughout one\'s career.' },
+
+  { type:'mc',   text:'According to Malinowski, what was the main social function of the Kula exchange system?',
+    opts:['Accumulating wealth for chiefs','Controlling behavior by excluding antisocial members from exchange networks','Paying tribute to neighboring islands','Honoring ancestral spirits'], ans:1,
+    exp:'Without police or courts, the Trobriands enforced social norms by cutting antisocial members out of exchange relationships — a powerful form of social control.' },
+
+  { type:'mc',   text:'What was the title of Malinowski\'s celebrated 1922 book about the Trobriand Islands?',
+    opts:['The Sexual Life of Savages','The Golden Bough','Argonauts of the Western Pacific','Patterns of Culture'], ans:2,
+    exp:'Argonauts of the Western Pacific (1922) revolutionized anthropology and was published the same year Malinowski joined the London School of Economics.' },
+
+  { type:'fitb', text:'Malinowski was born in the Polish city of ___ in 1884.',
+    opts:['Warsaw','Krakow','Gdansk','Lodz'], ans:1,
+    exp:'Malinowski was born in Krakow in 1884 — then part of the Austro-Hungarian Empire — in a bilingual Polish-German cultural atmosphere.' },
+
+  { type:'mc',   text:'What crucial distinction did Malinowski introduce into anthropological research?',
+    opts:['The difference between ancient and modern societies','The difference between what people say and what people actually do','The difference between urban and rural cultures','The difference between written and oral traditions'], ans:1,
+    exp:'Malinowski showed that what people tell you and what they actually do can differ greatly — like the difference between hearing about baseball and watching or playing it yourself.' },
+
+  { type:'mc',   text:'Which institution did Malinowski join in 1922, cementing his academic authority?',
+    opts:['Oxford University','Cambridge University','University of Vienna','London School of Economics'], ans:3,
+    exp:'Malinowski joined the London School of Economics in 1922 and soon "reigned supreme, almost like a sort of God professor" over British anthropology.' },
+
+  { type:'fitb', text:'Evolutionist anthropologists called seemingly pointless customs carried over from the past ___, viewing them as irrational holdovers.',
+    opts:['Rituals','Relics','Survivals','Taboos'], ans:2,
+    exp:'Evolutionists called these "survivals" — meaningless leftovers from an earlier era. Malinowski countered: if a custom survived, it was still doing something useful.' },
+
+  { type:'mc',   text:'What event published in 1968 severely damaged Malinowski\'s reputation?',
+    opts:['A rival\'s exposé accusing him of fabricating data','Publication of his private diaries revealing racist language and personal frustrations','Allegations that he had plagiarized a colleague\'s work','Letters proving he had never truly learned the Trobriand language'], ans:1,
+    exp:'His private diaries, published posthumously in 1968, contained racist language and raw frustrations — a stark contrast to the warmth he showed toward the Trobriand people in his published monographs.' },
+
+  { type:'mc',   text:'Which best describes Malinowski\'s overall conclusion about the Trobriand Islanders compared to Europeans?',
+    opts:['They were fundamentally irrational and needed European guidance','They were culturally inferior but highly organized socially','People everywhere are driven by the same rational motives — a common humanity underlies all cultures','Their culture was too unique to compare with Western societies'], ans:2,
+    exp:'Malinowski concluded: "If they are savage, we are savage; if we are civilized, they are civilized" — the same rational motives drive people in Warsaw, London, or the Trobriand Islands.' }
+];
+
+// ── NAME INPUT ──────────────────────────────────────────────────────
+document.getElementById('nameInput').addEventListener('input', function() {
+  var btn = document.getElementById('startBtn');
+  if (this.value.trim().length >= 2) {
+    btn.disabled = false;
+    btn.textContent = 'Begin quiz \u2192';
+  } else {
+    btn.disabled = true;
+    btn.textContent = 'Enter your name above to begin \u2192';
+  }
+});
+
+document.getElementById('nameInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') startQuiz();
+});
+
+// ── START ────────────────────────────────────────────────────────────
+function startQuiz() {
+  var name = document.getElementById('nameInput').value.trim();
+  if (name.length < 2) return;
+  studentName = name;
+  current = 0;
+  score = 0;
+  userAnswers = new Array(Q.length).fill(null);
+
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  showQuestion();
+}
+
+// ── SHOW QUESTION ────────────────────────────────────────────────────
+function showQuestion() {
+  var pct = (current / Q.length) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = (current + 1) + ' of ' + Q.length;
+
+  var q = Q[current];
+  var answered = userAnswers[current] !== null;
+  var label = q.type === 'fitb' ? 'Fill in the blank' : 'Multiple choice';
+
+  var qText = q.text.replace('___', '<span class="blank"></span>');
+
+  var optsHTML = '';
+  for (var i = 0; i < q.opts.length; i++) {
+    var cls = 'opt';
+    if (answered) {
+      if (i === q.ans) cls += ' correct';
+      else if (i === userAnswers[current]) cls += ' wrong';
+    }
+    var letter = String.fromCharCode(65 + i);
+    optsHTML += '<button class="' + cls + '" '
+      + (answered ? 'disabled' : 'onclick="choose(' + i + ')"') + '>'
+      + '<span class="opt-letter">' + letter + '</span>'
+      + '<span>' + q.opts[i] + '</span>'
+      + '</button>';
+  }
+
+  var feedbackHTML = '';
+  if (answered) {
+    var ok = userAnswers[current] === q.ans;
+    feedbackHTML = '<div class="feedback ' + (ok ? 'correct' : 'wrong') + '">'
+      + '<strong>' + (ok ? '&#10003; Correct.' : '&#10007; Incorrect.') + '</strong> '
+      + q.exp + '</div>';
+  }
+
+  var doneCount = userAnswers.filter(function(a){ return a !== null; }).length;
+  var navHTML = '<div class="nav-row">'
+    + '<span class="tally">Score: ' + score + ' / ' + doneCount + '</span>';
+  if (answered) {
+    var isLast = current === Q.length - 1;
+    navHTML += '<button class="btn-next" onclick="' + (isLast ? 'showResults()' : 'nextQuestion()') + '">'
+      + (isLast ? 'See results &rarr;' : 'Next &rarr;') + '</button>';
+  }
+  navHTML += '</div>';
+
+  document.getElementById('questionArea').innerHTML =
+    '<div class="card">'
+    + '<span class="q-badge">' + label + '</span>'
+    + '<div class="q-text">' + qText + '</div>'
+    + '<div class="options">' + optsHTML + '</div>'
+    + feedbackHTML
+    + navHTML
+    + '</div>';
+}
+
+// ── ANSWER ────────────────────────────────────────────────────────────
+function choose(i) {
+  if (userAnswers[current] !== null) return;
+  userAnswers[current] = i;
+  if (i === Q[current].ans) score++;
+  showQuestion();
+}
+
+function nextQuestion() {
+  current++;
+  if (current < Q.length) showQuestion();
+  else showResults();
+}
+
+// ── RESULTS ───────────────────────────────────────────────────────────
+function showResults() {
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('progLabel').textContent = '15 of 15';
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+
+  var passed = score >= 12;
+  var pct = Math.round(score / Q.length * 100);
+  var today = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  var safeName = esc(studentName);
+
+  // Score ring
+  var ringClass = passed ? 'score-ring passed' : 'score-ring failed';
+  var numClass  = passed ? 'score-big passed'  : 'score-big failed';
+  var pctClass  = passed ? 'score-pct passed'  : 'score-pct failed';
+
+  var html = '<div class="card results-center no-print">'
+    + '<div class="' + ringClass + '">'
+    + '<div class="' + numClass + '">' + score + '</div>'
+    + '<div class="score-of">out of 15</div>'
+    + '</div>'
+    + '<div class="' + pctClass + '">' + pct + '%</div>';
+
+  if (passed) {
+    html += '<div class="result-msg">Congratulations, ' + safeName + '! '
+      + 'You passed with ' + score + '/15. Your certificate is ready below.</div>'
+      + '<button class="btn-print" onclick="window.print()">&#128438;&nbsp; Print / Save certificate</button>'
+      + '<br>'
+      + '<button class="btn-restart" onclick="restart()">Retake quiz</button>';
+  } else {
+    var needed = 12 - score;
+    html += '<div class="result-msg">You need <strong>12 correct answers</strong> to pass. '
+      + 'You scored ' + score + '/15 — just ' + needed + ' more answer'
+      + (needed === 1 ? '' : 's') + ' needed.</div>'
+      + '<div class="fail-banner">'
+      + '<h3>Not yet passed</h3>'
+      + '<p>A score of at least 12 out of 15 (80%) is required to earn a Certificate of Completion. '
+      + 'Review the answers below, re-read the material, and try again.</p>'
+      + '</div>'
+      + '<button class="btn-restart" onclick="restart()">Retake quiz</button>';
+  }
+  html += '</div>'; // card
+
+  // Certificate (pass only)
+  if (passed) {
+    html += '<div class="cert-wrap">'
+      + '<div class="cert-inner">'
+      + '<span class="cert-corner tl">&diams;</span>'
+      + '<span class="cert-corner tr">&diams;</span>'
+      + '<span class="cert-corner bl">&diams;</span>'
+      + '<span class="cert-corner br">&diams;</span>'
+      + '<div class="cert-eyebrow">Certificate of Completion</div>'
+      + '<div class="cert-seal">&#127891;</div>'
+      + '<div class="cert-course-title">Bronislaw Malinowski<br>&amp; the Birth of Fieldwork</div>'
+      + '<div class="cert-presented">This certifies that</div>'
+      + '<div class="cert-name">' + safeName + '</div>'
+      + '<div class="cert-body">has successfully completed the assessment on the life, '
+      + 'fieldwork methods, and theoretical contributions of Bronislaw Malinowski, '
+      + 'demonstrating proficient understanding of participant observation, '
+      + 'functionalism, and the Trobriand Islands studies.</div>'
+      + '<div class="cert-score-pill">Score: ' + score + ' / 15 &nbsp;&middot;&nbsp; ' + pct + '%</div>'
+      + '<div class="cert-rule">&#9670; &nbsp; &#9670; &nbsp; &#9670;</div>'
+      + '<div class="cert-footer">'
+      + '<div class="cert-field">'
+      + '<div class="cert-field-label">Date</div>'
+      + '<div class="cert-field-value">' + today + '</div>'
+      + '</div>'
+      + '<div class="cert-field" style="text-align:center;flex:0.4;">'
+      + '<div style="font-size:18px;color:#C9A030;">&diams;</div>'
+      + '</div>'
+      + '<div class="cert-field right">'
+      + '<div class="cert-field-label">Course</div>'
+      + '<div class="cert-field-value">Anthropology &amp; Fieldwork Methods</div>'
+      + '</div>'
+      + '</div>'
+      + '</div>'  // cert-inner
+      + '</div>'; // cert-wrap
+  }
+
+  // Review
+  html += '<div class="review-section no-print"><div class="review-title">Answer review</div>';
+  for (var i = 0; i < Q.length; i++) {
+    var q = Q[i];
+    var ok = userAnswers[i] === q.ans;
+    var shortQ = q.text.replace('___','______');
+    if (shortQ.length > 85) shortQ = shortQ.substring(0, 85) + '&hellip;';
+    html += '<div class="r-item ' + (ok ? 'ok' : 'bad') + '">'
+      + '<div class="r-q">' + (i+1) + '. ' + shortQ + '</div>'
+      + '<div class="r-a">Correct answer: <span class="r-correct">' + q.opts[q.ans] + '</span>'
+      + (!ok ? ' &nbsp;&middot;&nbsp; Your answer: <span class="r-wrong">' + q.opts[userAnswers[i]] + '</span>' : '')
+      + '</div></div>';
+  }
+  html += '</div>';
+
+  document.getElementById('resultsArea').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+// ── RESTART ───────────────────────────────────────────────────────────
+function restart() {
+  current = 0; score = 0;
+  userAnswers = new Array(Q.length).fill(null);
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'block';
+  document.getElementById('nameInput').value = '';
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('startBtn').textContent = 'Enter your name above to begin \u2192';
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('progLabel').textContent = '1 of 15';
+  window.scrollTo(0, 0);
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
